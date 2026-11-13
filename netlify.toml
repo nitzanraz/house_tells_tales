@@ -1,0 +1,23 @@
+# Netlify settings — the site is plain HTML in /public, no build step needed.
+[build]
+  publish = "public"
+  command = ""
+
+# Cache images and styles for a week so repeat visits load fast
+[[headers]]
+  for = "/images/*"
+  [headers.values]
+    Cache-Control = "public, max-age=604800"
+
+[[headers]]
+  for = "/*.css"
+  [headers.values]
+    Cache-Control = "public, max-age=86400"
+
+# Basic security headers
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    X-Frame-Options = "SAMEORIGIN"
