@@ -16,6 +16,8 @@ Moved from base44 to a plain static site (no build tools needed).
 Hosted on **Netlify**, connected to this GitHub repo. Every push to `main` publishes automatically.
 Contact-form submissions are collected by **Netlify Forms** (Netlify dashboard → Forms) and emailed.
 
+Domain, DNS and account links (Netlify, GitHub, Base44): see **[DOMAIN.md](DOMAIN.md)**.
+
 ## Preview locally
 ```
 cd public && python3 -m http.server 8765
