@@ -55,7 +55,7 @@ Before the move (for reference / rollback to Base44): A → `216.24.57.1`, CNAME
 6. Side effect: the "Edit with Base44" badge on the Base44 copy was set to hidden.
 
 ### Still to do
-- [ ] Confirm https://house-stories.net loads from Netlify with a valid HTTPS lock (check: `curl -sI https://house-stories.net | grep -i server` should say `Netlify`).
+- [x] Confirm https://house-stories.net loads from Netlify with a valid HTTPS lock — confirmed 2026-11-14 (www redirects to the main domain).
 - [ ] Optional: in the Base44 app → Domains → "…" next to house-stories.net → **Unlink Domain** (our attempt didn't go through; not required since DNS no longer points to Base44).
 - [ ] Ask Base44 support: *"If I downgrade/cancel my subscription, do I keep house-stories.net until its Oct 2029 renewal?"*
 - [ ] Downgrade Base44 to the **Free** plan (account settings → plan/billing). Takes effect at the next billing cycle.
