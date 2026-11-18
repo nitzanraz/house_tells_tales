@@ -1,7 +1,7 @@
 # Domain & hosting notes — house-stories.net
 
 Everything about how **house-stories.net** is set up, so it's easy to pick up again later.
-Last updated: 2026-11-14.
+Last updated: 2026-11-18.
 
 ## How it fits together
 
@@ -60,6 +60,17 @@ Before the move (for reference / rollback to Base44): A → `216.24.57.1`, CNAME
 - [ ] Ask Base44 support: *"If I downgrade/cancel my subscription, do I keep house-stories.net until its Oct 2029 renewal?"*
 - [ ] Downgrade Base44 to the **Free** plan (account settings → plan/billing). Takes effect at the next billing cycle.
 - [ ] Optional, after **Dec 20, 2026**: transfer the domain away from Base44 (domain manager → "…" → **Transfer away from Base44**) to Netlify / Cloudflare / Namecheap so nothing depends on Base44. It's locked until then (normal 60-day lock).
+
+## Lessons learned / gotchas
+
+- **"Active" in Base44's domain list ≠ site on Base44.** It only means the domain registration is active. Check where the site really comes from with `dig +short house-stories.net` (`75.2.60.5` means Netlify) or `curl -sI https://house-stories.net | grep -i server` (should say `Netlify`).
+- **Your own Mac caches old DNS** after a change. Public DNS (8.8.8.8, 1.1.1.1) updated within minutes, but the Mac kept the old Base44 IP. Flush it with `sudo dscacheutil -flushcache; sudo killall -HUP mDNSResponder`, or test on a phone over mobile data. To test Netlify directly: `curl -sI --resolve house-stories.net:443:75.2.60.5 https://house-stories.net`.
+- **HTTPS lags behind DNS.** After switching DNS, Netlify needs a few minutes to an hour to issue the Let's Encrypt certificate. Until then, https shows a `*.netlify.app` certificate mismatch warning. Clicking "Verify DNS configuration" in Netlify speeds it up.
+- **Base44's DNS editor warns** that "editing default A or CNAME records may cause your site to go offline". That's expected when moving away; confirm with "Save Changes".
+- **Domain transfer lock:** newly registered or changed domains can't be transferred for 60 days. house-stories.net becomes transferable on **Dec 20, 2026**.
+- **Base44 dashboard is fiddly to automate:** the "…" menu on the Domains page closes easily, and the page sometimes redirects to Overview/Settings mid-click. One misclick toggled the Platform Badge to hidden. Do Base44 dashboard actions by hand if they misbehave.
+- **Base44 plans:** Free ($0) can't connect a custom domain, but that's no longer needed since Netlify serves the domain. Paid plans: Starter $16, Builder $40, Pro $80, Elite $160 /mo (yearly billing). Plan changes take effect at the next billing cycle.
+- **Base44 is owned by Wix:** the domain manager is "Domains by Wix", and nameservers are `ns12/ns13.wixdns.net` (not editable).
 
 ## How to manage things later
 
